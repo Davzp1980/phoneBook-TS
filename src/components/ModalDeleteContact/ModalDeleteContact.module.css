@@ -1,0 +1,37 @@
+.container {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none;
+  border-radius: 10px;
+  width: 280px;
+  height: 80px;
+  background-color: rgb(200, 224, 243);
+}
+.p {
+  color: red;
+}
+.btnContainer {
+  display: flex;
+
+  justify-content: space-around;
+  align-items: center;
+}
+.buttonDel {
+  border: none;
+  border-radius: 5px;
+
+  height: 40px;
+  cursor: pointer;
+}
+.buttonRet {
+  border: none;
+  border-radius: 5px;
+
+  height: 40px;
+  cursor: pointer;
+}

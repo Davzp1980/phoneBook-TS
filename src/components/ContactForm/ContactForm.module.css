@@ -1,0 +1,27 @@
+.form {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  margin-bottom: 50px;
+  background-color: rgb(158, 241, 241);
+}
+
+.field {
+  margin-bottom: 15px;
+  height: 30px;
+  font-size: 20px;
+  border-radius: 5px;
+  border-color: rgb(158, 241, 241);
+}
+
+.field:focus {
+  outline: blue;
+  border-color: blue;
+}
+
+.button {
+  align-self: center;
+}

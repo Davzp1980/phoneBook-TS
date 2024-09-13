@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 230px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(175, 252, 252);
+}
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  height: 30px;
+  align-self: center;
+  width: 52px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+}
+.iconUser {
+  margin-right: 15px;
+}
+.iconPhone {
+  margin-right: 10px;
+}
+
+.pUser {
+  margin-bottom: 5px;
+}

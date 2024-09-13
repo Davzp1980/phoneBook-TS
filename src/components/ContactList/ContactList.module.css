@@ -1,0 +1,8 @@
+.ul {
+  list-style-type: none;
+  max-width: 800px;
+  display: flex;
+  row-gap: 10px;
+  column-gap: 10px;
+  flex-wrap: wrap;
+}

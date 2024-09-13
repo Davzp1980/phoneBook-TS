@@ -1,0 +1,17 @@
+.div {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  width: 270px;
+  height: 80px;
+  padding: 15px;
+  background-color: rgb(158, 241, 241);
+}
+.input {
+  height: 30px;
+  font-size: 20px;
+  border-radius: 5px;
+  border-color: rgb(158, 241, 241);
+}

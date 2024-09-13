@@ -1,0 +1,22 @@
+.form {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 250px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgb(158, 241, 241);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.field {
+  margin-bottom: 15px;
+  height: 30px;
+
+  border-radius: 5px;
+  border-color: rgb(158, 241, 241);
+}
