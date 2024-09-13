@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-type Contact = {
+export type Contact = {
   id: string;
   name: string;
   number: string;

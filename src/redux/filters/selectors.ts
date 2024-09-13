@@ -6,7 +6,7 @@ export const selectError = (state: RootState) => state.contacts.error;
 
 export const selectIsLoading = state => state.contacts.isLoading;
 
-export const selectSearchValue = state => state.filters.name;
+export const selectSearchValue = (state: RootState) => state.filters.name;
 
 export const selectIsModalDelVisible = state => state.filters.isModalDelVisible;
 

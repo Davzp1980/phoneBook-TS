@@ -1,10 +1,24 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { string } from 'yup';
+import { RootState } from '../store';
 
 axios.defaults.baseURL = 'https://connections-api.goit.global';
 
+type Credentials = {
+  name: string;
+  email: string;
+  password: string;
+};
+type Response = {
+  token: string;
+  user: {
+    name: string;
+    email: string;
+  };
+};
 // Utility to add JWT
-const setAuthHeader = token => {
+const setAuthHeader = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -17,33 +31,31 @@ const clearAuthHeader = () => {
  * POST @ /users/signup
  * body: { name, email, password }
  */
-export const register = createAsyncThunk(
+export const register = createAsyncThunk<Response, Credentials>(
   'auth/register',
-  async (credentials, thunkAPI) => {
+  async (credentials: Credentials, thunkAPI) => {
     try {
-      const res = await axios.post('/users/signup', credentials);
+      const { data } = await axios.post<Response>('/users/signup', credentials);
       // After successful registration, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
-    } catch (error) {
+      setAuthHeader(data.token);
+
+      return data;
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-/*
- * POST @ /users/login
- * body: { email, password }
- */
-export const logIn = createAsyncThunk(
+export const logIn = createAsyncThunk<Response, Credentials>(
   'auth/login',
-  async (credentials, thunkAPI) => {
+  async (credentials: Credentials, thunkAPI) => {
     try {
-      const res = await axios.post('/users/login', credentials);
+      const { data } = await axios.post('/users/login', credentials);
       // After successful login, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
-    } catch (error) {
+      setAuthHeader(data.token);
+
+      return data;
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -58,7 +70,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await axios.post('/users/logout');
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
@@ -67,25 +79,26 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
  * GET @ /users/me
  * headers: Authorization: Bearer token
  */
-export const refreshUser = createAsyncThunk(
-  'auth/refresh',
-  async (_, thunkAPI) => {
-    // Reading the token from the state via getState()
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+export const refreshUser = createAsyncThunk<
+  Credentials,
+  void,
+  { state: RootState }
+>('auth/refresh', async (_, thunkAPI) => {
+  // Reading the token from the state via getState()
+  const state = thunkAPI.getState();
+  const persistedToken: string | null = state.auth.token;
 
-    if (persistedToken === null) {
-      // If there is no token, exit without performing any request
-      return thunkAPI.rejectWithValue('Unable to fetch user');
-    }
-
-    try {
-      // If there is a token, add it to the HTTP header and perform the request
-      setAuthHeader(persistedToken);
-      const res = await axios.get('/users/current');
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+  if (persistedToken === null) {
+    // If there is no token, exit without performing any request
+    return thunkAPI.rejectWithValue('Unable to fetch user');
   }
-);
+
+  try {
+    // If there is a token, add it to the HTTP header and perform the request
+    setAuthHeader(persistedToken);
+    const res = await axios.get<Credentials>('/users/current');
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
