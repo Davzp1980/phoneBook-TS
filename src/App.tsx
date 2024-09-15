@@ -2,7 +2,7 @@ import './App.css';
 
 import { lazy, useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Route, Routes } from 'react-router';
 import { Layout } from './components/Layout';
@@ -19,14 +19,19 @@ import {
 import { Toaster } from 'react-hot-toast';
 import ModalEditContact from './components/ModalEditContact/ModalEditContact';
 import { RotatingLines } from 'react-loader-spinner';
+import { useAppDispatch } from './redux/store';
 
-const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
-const ContactsPage = lazy(() => import('./pages/ContactsPage/ContactsPage'));
-const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
-const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage'));
+const HomePage = lazy(() => import('./pages/HomePage/HomePage.tsx'));
+const ContactsPage = lazy(
+  () => import('./pages/ContactsPage/ContactsPage.tsx')
+);
+const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.tsx'));
+const RegisterPage = lazy(
+  () => import('./pages/RegisterPage/RegisterPage.tsx')
+);
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isRefreshing = useSelector(selectIsRefreshing);
   const isModalDelVisible = useSelector(selectIsModalDelVisible);

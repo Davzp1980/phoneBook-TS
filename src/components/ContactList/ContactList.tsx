@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Contact from '../Contact/Contact';
 import css from './ContactList.module.css';
 import { selectFilteredContacts } from '../../redux/filters/selectors';
 import { useEffect } from 'react';
 import { fetchContacts } from '../../redux/contacts/operations';
+import { useAppDispatch } from '../../redux/store';
 
 export function ContactList() {
   const sortedContacts = useSelector(selectFilteredContacts);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchContacts());

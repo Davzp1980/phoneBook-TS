@@ -1,15 +1,19 @@
-import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
 import css from './LoginForm.module.css';
 import toast from 'react-hot-toast';
 import * as yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Button } from '@mui/material';
+import { useAppDispatch } from '../../redux/store';
 
 export const LoginForm = () => {
-  const dispatch = useDispatch();
+  type InitialValues = {
+    email: string;
+    password: string;
+  };
+  const dispatch = useAppDispatch();
 
-  const initialValues = {
+  const initialValues: InitialValues = {
     email: '',
     password: '',
   };
@@ -26,7 +30,7 @@ export const LoginForm = () => {
       .required('Must be filled in'),
   });
 
-  const handleSubmit = (value, action) => {
+  const handleSubmit = (value: InitialValues, action: any) => {
     dispatch(
       logIn({
         email: value.email,

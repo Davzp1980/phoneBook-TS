@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { string } from 'yup';
+
 import { RootState } from '../store';
 
 axios.defaults.baseURL = 'https://connections-api.goit.global';
 
 type Credentials = {
-  name: string;
+  name?: string;
   email: string;
   password: string;
 };
@@ -81,7 +81,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
  */
 export const refreshUser = createAsyncThunk<
   Credentials,
-  void,
+  undefined,
   { state: RootState }
 >('auth/refresh', async (_, thunkAPI) => {
   // Reading the token from the state via getState()

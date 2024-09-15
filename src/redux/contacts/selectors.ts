@@ -1,1 +1,3 @@
-export const selectContacts = state => state.contacts.items;
+import { RootState } from '../store';
+
+export const selectContacts = (state: RootState) => state.contacts.items;

@@ -6,9 +6,15 @@ import { selectIsLoggedIn } from '../redux/auth/selectors';
  * - If the route is private and the user is logged in, render the component
  * - Otherwise render <Navigate> to redirectTo
  */
-
-export const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
+type PrivateRouteProps = {
+  component: JSX.Element;
+  redirectTo: string;
+};
+export function PrivateRoute({
+  component: Component,
+  redirectTo = '/',
+}: PrivateRouteProps) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return isLoggedIn ? Component : <Navigate to={redirectTo} />;
-};
+}

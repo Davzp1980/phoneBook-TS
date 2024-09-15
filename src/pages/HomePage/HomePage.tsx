@@ -1,6 +1,20 @@
 import DocumentTitle from '../../components/DocumentTitle';
 
-const styles = {
+type Styles = {
+  container: {
+    minHeight: string;
+    display: string;
+    alignItems: string;
+    justifyContent: string;
+  };
+  title: {
+    fontWeight: number;
+    fontSize: number;
+    textAlign: any;
+  };
+};
+
+const styles: Styles = {
   container: {
     minHeight: 'calc(100vh - 50px)',
     display: 'flex',

@@ -4,13 +4,13 @@ type FilterInitialState = {
   name: string;
   isModalDelVisible: boolean;
   isModalEditVisible: boolean;
-  contactId: string | null;
+  contactId: string;
 };
 const initialState: FilterInitialState = {
   name: '',
   isModalDelVisible: false,
   isModalEditVisible: false,
-  contactId: null,
+  contactId: '',
 };
 const filterSlice = createSlice({
   name: 'filters',
@@ -22,7 +22,7 @@ const filterSlice = createSlice({
     setModalDelVisible(state, action: PayloadAction<boolean>) {
       state.isModalDelVisible = action.payload;
     },
-    setContactId(state, action: PayloadAction<string | null>) {
+    setContactId(state, action: PayloadAction<string>) {
       state.contactId = action.payload;
     },
     setModalEditVisible(state, action: PayloadAction<boolean>) {

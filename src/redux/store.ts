@@ -11,11 +11,25 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  PersistConfig,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { filterReducer } from './filters/slice';
+import { useDispatch } from 'react-redux';
+import { TypedUseSelectorHook } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const authPersistConfig = {
+type InitialState = {
+  user: {
+    name: string | null;
+    email: string | null;
+  };
+  token: string | null;
+  isLoggedIn: boolean;
+  isRefreshing: boolean;
+};
+
+const authPersistConfig: PersistConfig<InitialState> = {
   key: 'auth',
   storage,
   whitelist: ['token'],
@@ -25,7 +39,7 @@ export const store = configureStore({
   reducer: {
     contacts: contactsReducer,
     filters: filterReducer,
-    auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistReducer<InitialState>(authPersistConfig, authReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -40,3 +54,7 @@ export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

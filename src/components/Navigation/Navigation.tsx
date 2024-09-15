@@ -4,10 +4,13 @@ import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import css from './Navigation.module.css';
 import clsx from 'clsx';
 
+type activeLinkProps = {
+  isActive: boolean;
+};
 export const Navigation = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  function activeLink({ isActive }) {
+  function activeLink({ isActive }: activeLinkProps) {
     return clsx(css.link, isActive && css.active);
   }
 

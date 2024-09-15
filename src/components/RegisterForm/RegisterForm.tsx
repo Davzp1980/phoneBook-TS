@@ -1,19 +1,20 @@
-import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
 import css from './RegisterForm.module.css';
+import { useAppDispatch } from '../../redux/store';
 
 export const RegisterForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target;
+    const form = e.target as HTMLFormElement;
 
     dispatch(
       register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
+        name: (form.elements.namedItem('name') as HTMLInputElement).value,
+        email: (form.elements.namedItem('email') as HTMLInputElement).value,
+        password: (form.elements.namedItem('password') as HTMLInputElement)
+          .value,
       })
     );
 

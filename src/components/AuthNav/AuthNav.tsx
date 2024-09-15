@@ -2,8 +2,12 @@ import { NavLink } from 'react-router-dom';
 import css from './AuthNav.module.css';
 import clsx from 'clsx';
 
+type AuthNavProps = {
+  isActive: boolean;
+};
+
 export const AuthNav = () => {
-  function activeLink({ isActive }) {
+  function activeLink({ isActive }: AuthNavProps) {
     return clsx(css.link, isActive && css.active);
   }
 

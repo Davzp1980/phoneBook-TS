@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import css from './ModalEditContact.module.css';
 
@@ -9,16 +8,25 @@ import { Button } from '@mui/material';
 import { setModalEditVisible } from '../../redux/filters/slice';
 import { selectContacts } from '../../redux/contacts/selectors';
 import toast from 'react-hot-toast';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 function ModalEditContact() {
-  const dispatch = useDispatch();
-  const id = useSelector(selectContactId);
-  const contacts = useSelector(selectContacts);
+  type InitialValues = {
+    id?: string;
+    name: string;
+    number: string;
+  };
+  const dispatch = useAppDispatch();
+  const id = useAppSelector(selectContactId);
+  const contacts = useAppSelector(selectContacts);
 
-  const contactNameEdit = contacts.find(contact => contact.id == id).name;
-  const contactNumberEdit = contacts.find(contact => contact.id == id).number;
+  const contact = contacts.find(contact => contact.id === id);
 
-  function handleEdit(values, actions) {
+  if (!contact) return null;
+  const contactNameEdit = contact.name;
+  const contactNumberEdit = contact.number;
+
+  function handleEdit(values: InitialValues, actions: any) {
     dispatch(setModalEditVisible(false));
 
     dispatch(
@@ -34,7 +42,7 @@ function ModalEditContact() {
       });
     actions.resetForm();
   }
-  const initialValues = {
+  const initialValues: InitialValues = {
     name: contactNameEdit,
     number: contactNumberEdit,
   };

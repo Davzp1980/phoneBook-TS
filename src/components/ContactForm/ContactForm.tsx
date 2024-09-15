@@ -1,19 +1,23 @@
-/* eslint-disable react/prop-types */
 import { Formik, Form, Field } from 'formik';
 import { useId } from 'react';
 import css from './ContactForm.module.css';
 import * as yup from 'yup';
 import { ErrorMessage } from 'formik';
 import Button from '@mui/material/Button';
-
-import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contacts/operations';
 import toast from 'react-hot-toast';
+import { useAppDispatch } from '../../redux/store';
 
 export function ContactForm() {
   const contactNameFieldId = useId();
   const phoneNumberFieldId = useId();
-  const initialValues = {
+
+  type InitialValues = {
+    contactName: string;
+    phoneNumber: string;
+  };
+
+  const initialValues: InitialValues = {
     contactName: '',
     phoneNumber: '',
   };
@@ -33,9 +37,9 @@ export function ContactForm() {
       .required('Must be filled in'),
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  function handleSubmit(values, actions) {
+  function handleSubmit(values: InitialValues, actions: any) {
     dispatch(
       addContact({
         name: values.contactName,

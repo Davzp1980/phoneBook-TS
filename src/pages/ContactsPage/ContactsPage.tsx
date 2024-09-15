@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import DocumentTitle from '../../components/DocumentTitle';
+import { useSelector } from 'react-redux';
+import DocumentTitle from '../../components/DocumentTitle.tsx';
 import { selectIsLoading } from '../../redux/filters/selectors';
 import { fetchContacts } from '../../redux/contacts/operations';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import ContactList from '../../components/ContactList/ContactList';
 import SearchBox from '../../components/SearchBox/SearchBox';
+import { useAppDispatch } from '../../redux/store';
 
 export default function TasksPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {

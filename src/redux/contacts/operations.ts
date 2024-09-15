@@ -12,19 +12,19 @@ type NewContact = {
   name: string;
   number: string;
 };
-export const fetchContacts = createAsyncThunk<Contact[]>(
-  'contacts/fetchAll',
-  async function (_, thunkAPI) {
-    try {
-      const { data } = await axios.get<Contact[]>('/contacts');
-      console.log(data);
+export const fetchContacts = createAsyncThunk<
+  Contact[],
+  undefined,
+  { rejectValue: string }
+>('contacts/fetchAll', async function (_, thunkAPI) {
+  try {
+    const { data } = await axios.get<Contact[]>('/contacts');
 
-      return data;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.message);
-    }
+    return data;
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.message);
   }
-);
+});
 
 export const addContact = createAsyncThunk<Contact, NewContact>(
   'contacts/addContact',
